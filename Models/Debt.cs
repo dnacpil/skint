@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace skint.Models;
 public class Debt
@@ -10,4 +12,9 @@ public class Debt
     public double AmountOwed { get; set; }
 
     public DateTime Due { get; set; }
+
+    public string? UserId { get; set; }
+    [ForeignKey("UserId")]
+    public virtual IdentityUser? User { get; set; }
+
 }

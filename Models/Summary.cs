@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 using NuGet.Protocol.Plugins;
 
 namespace skint.Models
@@ -14,5 +16,9 @@ namespace skint.Models
         public double DisposableIncome { get; set; }
 
         public DateTime Date { get; set; }
+
+        public string? UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual IdentityUser? User { get; set; }
     }
 }

@@ -1,7 +1,21 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using skint.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration
+    .GetConnectionString("skintIdentityDbContextConnection") ??
+    throw new InvalidOperationException("Connection string'skintIdentityDbContextConnection' not found.");
+
+builder.Services.AddDbContext<skintIdentityDbContext>(options => options.UseSqlite(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<skintIdentityDbContext>();
+
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
+
 
 var app = builder.Build();
 
@@ -9,7 +23,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -24,4 +37,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapRazorPages();
 app.Run();
