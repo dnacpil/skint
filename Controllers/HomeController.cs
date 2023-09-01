@@ -8,6 +8,8 @@ using skint.Models;
 
 namespace skint.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
