@@ -9,9 +9,9 @@ public class Expenses{
 
     [Key]
     public int ExpenseID {get; set;}
-    public required string Description { get; set; }
+    public string? Description { get; set; }
     public double Cost { get; set; }
-    public DateTime Due { get; set; } = DateTime.Now;
+    public DateTime Due { get; set; }
 
     public string? UserId { get; set; }
     [ForeignKey("UserId")]

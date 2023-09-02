@@ -1,14 +1,14 @@
-@model Income
+@model Debt
 <div class="card-body p-4">
     <form method="POST" class="row" asp-action="Create" enctype="multipart/form-data">
 
         <div class="form-floating py-2 col-12">
-            <input asp-for="Source" class="form-control border-0 shadow">
-            <label asp-for="Source" class="ms-2">Source of income (e.g. salary, stocks, etc.)</label>
+            <input asp-for="Description" class="form-control border-0 shadow">
+            <label asp-for="Description" class="ms-2">Description</label>
         </div>
         <div class="form-floating py-2 col-12">
-            <input asp-for="Amount" class="form-control border-0 shadow">
-            <label asp-for="Amount" class="ms-2">Amount</label>
+            <input asp-for="AmountOwed" class="form-control border-0 shadow">
+            <label asp-for="AmountOwed" class="ms-2">Amount Owed 🥲</label>
         </div>
         <div class="row pt-2">
             <div class="col-6 col-md-3">

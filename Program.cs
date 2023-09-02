@@ -10,7 +10,7 @@ var connectionString = builder.Configuration
 
 builder.Services.AddDbContext<skintIdentityDbContext>(options => options.UseSqlite(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<skintIdentityDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<skintIdentityDbContext>();
 
 
 builder.Services.AddControllersWithViews();

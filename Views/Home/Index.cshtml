@@ -1,7 +1,13 @@
-﻿@model IEnumerable<Income>
+﻿
 @{
     ViewData["Title"] = "Home Page";
+    
 }
+
+@* @{
+    var currentUserID = Identity.GetUserId();
+    var userIncomes = dbContext.Incomes.Where(i => i.UserId == currentUserID).ToList();
+} *@
 
 <div class="text-center">
     <h1 class="display-4">Budget</h1>
@@ -11,4 +17,13 @@
         <i class="bi bi-plus-circle me-2"></i>Add new item
         </a>
 </div>
-
+<div class="col-sm-6 d-flex justify-content-end align-items-center">
+    <a asp-controller="Expenses" asp-action="Create" class="btn btn-primary text-uppercase align-items-center">
+        <i class="bi bi-plus-circle me-2"></i>Add new item
+        </a>
+</div>
+<div class="col-sm-6 d-flex justify-content-end align-items-center">
+    <a asp-controller="Debt" asp-action="Create" class="btn btn-primary text-uppercase align-items-center">
+        <i class="bi bi-plus-circle me-2"></i>Add new item
+        </a>
+</div>
