@@ -19,8 +19,7 @@ public class ExpensesController : Controller
         _db = context;
     }
 
-    //Create new item to Expenses
-    [HttpGet]
+
     public async Task<IActionResult> Index()
     {
         return _db.Expenses != null ?
@@ -28,6 +27,7 @@ public class ExpensesController : Controller
 
             Problem("Entity set 'skintIdentityDbcontext.Expenses'  is null.");
     }
+    //Create new item to Expenses
     [HttpGet]
     public IActionResult Create()
     {
@@ -45,6 +45,106 @@ public class ExpensesController : Controller
             await _db.SaveChangesAsync();
             //return RedirectToAction(nameof(Index));
         }
+        return View(new Expenses());
+    }
+
+    //Edit an item
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Expenses>>> Edit(int? id)
+    {
+        if (id == null || _db.Expenses == null)
+        {
+            return NotFound();
+        }
+
+        var expense = await _db.Expenses.FindAsync(id);
+        if (expense == null)
+        {
+            return NotFound();
+        }
+        return View(expense);
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> PostEdit(int id, [Bind("Description, Cost, Due")] Expenses expense)
+    {
+
+        if (ModelState.IsValid)
+        {
+            _db.Update(expense);
+            await _db.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
+        }
+        return View(new Expenses());
+    }
+    /* if (id != expense.ExpenseID)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _db.Update(expense);
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ExpensesExists(expense.ExpenseID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        return RedirectToAction("Index"); 
+}
+            return View(expense);
+        }*/
+
+    private bool ExpensesExists(int expenseID)
+    {
+        throw new NotImplementedException();
+    }
+
+    // Delete item
+    [HttpGet]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null || _db.Expenses == null)
+        {
+            return NotFound();
+        }
+
+        var expense = await _db.Expenses
+            .FirstOrDefaultAsync(m => m.ExpenseID == id);
+        if (expense == null)
+        {
+            return NotFound();
+        }
+
+        return View(expense);
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostDelete(int? id)
+    {
+        var expense = _db.Expenses.Find(id);
+
+        if (expense == null)
+        {
+            return NotFound();
+        }
+        _db.Expenses.Remove(expense);
+        _db.SaveChangesAsync();
+        //return RedirectToAction(nameof(Delete));
         return View(new Expenses());
     }
 

@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using skint.Data;
 using skint.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace skint.Controllers;
 [Authorize]
@@ -18,12 +19,25 @@ public class HomeController : Controller
         _logger = logger;
         _db = db;
     }
-
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        // Retrieve expenses from the database
+        var expenses = await _db.Expenses.ToListAsync();
 
-        return View();
+        return View(expenses);
     }
+//Combining the models into one view:
+/* public IActionResult MyView()
+{
+    var combinedViewModel = new CombinedViewModel
+    {
+        Debts = GetDebtsFromDatabase(),
+        Expenses = GetExpensesFromDatabase(),
+        Incomes = GetIncomesFromDatabase()
+    };
+
+    return View(combinedViewModel);
+} */
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -31,35 +45,4 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
-
-/* 
-    // GET 
-    [HttpGet]
-    public async Task<IActionResult> Index()
-    {
-        return _db.Income != null ?
-            View(await _db.Income.ToListAsync()) :
-
-            Problem("Entity set 'skintIdentityDbcontext.Income'  is null.");
-    }
-    [HttpGet]
-    public IActionResult Create()
-    {
-
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Income>>> Create([Bind("Source, Amount")] Income income)
-    {
-        if (ModelState.IsValid)
-        {
-            _db.Add(income);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(new Income());
-    } */
-
 

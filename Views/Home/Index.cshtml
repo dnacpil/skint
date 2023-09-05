@@ -1,29 +1,15 @@
-﻿
+﻿@model IEnumerable<Expenses>
 @{
     ViewData["Title"] = "Home Page";
-    
+
 }
 
-@* @{
-    var currentUserID = Identity.GetUserId();
-    var userIncomes = dbContext.Incomes.Where(i => i.UserId == currentUserID).ToList();
-} *@
-
+<div id="landing-section">
+    <img id="landing-img" src="/Users/skint2/wwwroot/images/Na_Dec_34.jpg" alt="">
+    @* <a
+        href="https://www.freepik.com/free-vector/young-man-is-riding-piggy-bank-use-insect-net-trying-catch-flying-dollar-coin-dollars-flying-away-saving-money-concept-cartoon-vector-illustration_22821982.htm">Image
+        by jcomp on Freepik</a>  *@
+</div>
 <div class="text-center">
+
     <h1 class="display-4">Budget</h1>
-</div>
-<div class="col-sm-6 d-flex justify-content-end align-items-center">
-    <a asp-controller="Income" asp-action="Create" class="btn btn-primary text-uppercase align-items-center">
-        <i class="bi bi-plus-circle me-2"></i>Add new item
-        </a>
-</div>
-<div class="col-sm-6 d-flex justify-content-end align-items-center">
-    <a asp-controller="Expenses" asp-action="Create" class="btn btn-primary text-uppercase align-items-center">
-        <i class="bi bi-plus-circle me-2"></i>Add new item
-        </a>
-</div>
-<div class="col-sm-6 d-flex justify-content-end align-items-center">
-    <a asp-controller="Debt" asp-action="Create" class="btn btn-primary text-uppercase align-items-center">
-        <i class="bi bi-plus-circle me-2"></i>Add new item
-        </a>
-</div>

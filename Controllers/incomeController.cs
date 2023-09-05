@@ -48,6 +48,79 @@ public class IncomeController : Controller
         return View(new Income());
     }
 
+    //Edit an item
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Income>>> Edit(int? id)
+    {
+        if (id == null || _db.Income == null)
+        {
+            return NotFound();
+        }
+
+        var income = await _db.Income.FindAsync(id);
+        if (income == null)
+        {
+            return NotFound();
+        }
+        return View(income);
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> PostEdit(int id, [Bind("Source, Amount")] Income income)
+    {
+
+        if (ModelState.IsValid)
+        {
+            _db.Update(income);
+            await _db.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
+        }
+        return View(new Income());
+    }
+
+    private bool IncomeExists(int IncomeID)
+    {
+        throw new NotImplementedException();
+    }
+
+    // Delete item
+    [HttpGet]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null || _db.Income == null)
+        {
+            return NotFound();
+        }
+
+        var income = await _db.Income
+            .FirstOrDefaultAsync(m => m.IncomeID == id);
+        if (income == null)
+        {
+            return NotFound();
+        }
+
+        return View(income);
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostDelete(int? id)
+    {
+        var income = _db.Income.Find(id);
+
+        if (income == null)
+        {
+            return NotFound();
+        }
+        _db.Income.Remove(income);
+        _db.SaveChangesAsync();
+        //return RedirectToAction(nameof(Delete));
+        return RedirectToRoute("../Home");
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
