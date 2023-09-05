@@ -19,6 +19,10 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
+//Register Syncfusion license
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBPh8sVXJ2S0R+WVpFdEBBXHxAd1p/VWJYdVt5flBPcDwsT3RfQF5jQH5Wd0BnXH9fdX1cRw==;Mgo+DSMBMAY9C3t2V1hiQlRPd11dXmJWd1p/THNYflR1fV9DaUwxOX1dQl9gSXdTc0RmXXpecXJUT2E=");
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
