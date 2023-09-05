@@ -23,8 +23,14 @@ public class HomeController : Controller
     {
         // Retrieve expenses from the database
         var expenses = await _db.Expenses.ToListAsync();
+        //Total Income
 
+        //Total Debt
+
+        //Total Expenses
         return View(expenses);
+
+        
     }
 //Combining the models into one view:
 /* public IActionResult MyView()
