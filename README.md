@@ -3,7 +3,7 @@
 ## Installation
 1. Fork and clone the repository:
 ```
-git clone 
+git clone https://github.com/dnacpil/skint.git
 ```
 OR
 
@@ -28,7 +28,7 @@ Users can register online. However, permissions will need to be modified using S
 
 To assign a user an adminitrator role:
 
-1. Right click on the database RoastHiveApiMVC.db in Visual Code and choose open. 
+1. Right click on the database skint.db in Visual Code and choose open. 
 
 2. Locate the AspNetRoles table and right-click it.
 
