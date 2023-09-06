@@ -19,15 +19,29 @@ public class IncomeController : Controller
         _db = context;
     }
 
-    // GET 
     [HttpGet]
-    public async Task<IActionResult> Index()
+     public async Task<IActionResult> Index(string sortOrder)
     {
-        return _db.Income != null ?
-            View(await _db.Income.ToListAsync()) :
-
-            Problem("Entity set 'skintIdentityDbcontext.Income'  is null.");
+        ViewData["SourceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "source_desc" : "";
+        ViewData["AmountOwedSortParam"] = sortOrder == "AmountOwed" ? "amount_owed_desc" : "AmountOwed";
+        var income = from i in _db.Income
+                          select i;
+        switch (sortOrder)
+        {
+            case "source_desc":
+                income = income.OrderByDescending(i => i.Source);
+                break;
+            case "amount_owed_desc":
+                income = income.OrderByDescending(i => i.Amount);
+                break;
+            default:
+                income = income.OrderBy(i => i.Amount);
+                break;
+        }
+        return View(await income.AsNoTracking().ToListAsync());
     }
+
+    // Create an item
     [HttpGet]
     public IActionResult Create()
     {

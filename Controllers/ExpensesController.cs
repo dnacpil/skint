@@ -20,12 +20,32 @@ public class ExpensesController : Controller
     }
 
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string sortOrder)
     {
-        return _db.Expenses != null ?
-            View(await _db.Expenses.ToListAsync()) :
-
-            Problem("Entity set 'skintIdentityDbcontext.Expenses'  is null.");
+        ViewData["DescriptionSortParm"] = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
+        ViewData["CostSortParam"] = sortOrder == "Cost" ? "cost_desc" : "Cost";
+        ViewData["DueSortParm"] = sortOrder == "Due" ? "date_desc" : "Due";
+        var expense = from e in _db.Expenses
+                          select e;
+        switch (sortOrder)
+        {
+            case "description_desc":
+                expense = expense.OrderByDescending(e => e.Description);
+                break;
+            case "Cost":
+                expense = expense.OrderBy(e => e.Cost);
+                break;
+            case "cost_desc":
+                expense = expense.OrderByDescending(e => e.Cost);
+                break;
+            case "date_desc":
+                expense = expense.OrderByDescending(e => e.Due);
+                break;
+            default:
+                expense = expense.OrderBy(e => e.Due);
+                break;
+        }
+        return View(await expense.AsNoTracking().ToListAsync());
     }
 
     //Create new item 

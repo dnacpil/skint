@@ -20,14 +20,34 @@ public class DebtController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string sortOrder)
     {
-        return _db.Debt != null ?
-            View(await _db.Debt.ToListAsync()) :
-
-            Problem("Entity set 'skintIdentityDbcontext.Debt'  is null.");
+        ViewData["DescriptionSortParm"] = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
+        ViewData["AmountOwedSortParam"] = sortOrder == "AmountOwed" ? "amount_owed_desc" : "AmountOwed";
+        ViewData["DueSortParm"] = sortOrder == "Due" ? "date_desc" : "Due";
+        var debt = from d in _db.Debt
+                          select d;
+        switch (sortOrder)
+        {
+            case "description_desc":
+                debt = debt.OrderByDescending(d => d.Description);
+                break;
+            case "AmountOwed":
+                debt = debt.OrderBy(d => d.AmountOwed);
+                break;
+            case "amount_owed_desc":
+                debt = debt.OrderByDescending(d => d.AmountOwed);
+                break;
+            case "date_desc":
+                debt = debt.OrderByDescending(d => d.Due);
+                break;
+            default:
+                debt = debt.OrderBy(d => d.Due);
+                break;
+        }
+        return View(await debt.AsNoTracking().ToListAsync());
     }
-    
+
     //Create new item
     [HttpGet]
     public IActionResult Create()
@@ -45,7 +65,7 @@ public class DebtController : Controller
             _db.Add(debt);
             await _db.SaveChangesAsync();
             RedirectToAction(nameof(Index));
-            
+
         }
         return View(new Debt());
     }
@@ -138,7 +158,7 @@ public class DebtController : Controller
         _db.Debt.Remove(debt);
         _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
-        
+
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
