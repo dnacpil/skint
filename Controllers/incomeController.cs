@@ -43,7 +43,7 @@ public class IncomeController : Controller
         {
             _db.Add(income);
             await _db.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
         return View(new Income());
     }
@@ -71,21 +71,40 @@ public class IncomeController : Controller
     public async Task<IActionResult> PostEdit(int id, [Bind("Source, Amount")] Income income)
     {
 
+        if (id != income.IncomeID)
+        {
+            return NotFound();
+        }
+
         if (ModelState.IsValid)
         {
-            _db.Update(income);
-            await _db.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
+            try
+            {
+                _db.Update(income);
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!IncomeExists(income.IncomeID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index");
         }
-        return View(new Income());
+        return View(income);
     }
 
-    private bool IncomeExists(int IncomeID)
+    private bool IncomeExists(int incomeID)
     {
         throw new NotImplementedException();
     }
 
-    // Delete item
+    // Delete an item
     [HttpGet]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -117,10 +136,10 @@ public class IncomeController : Controller
         }
         _db.Income.Remove(income);
         _db.SaveChangesAsync();
-        //return RedirectToAction(nameof(Delete));
-        return RedirectToRoute("../Home");
+        return RedirectToAction(nameof(Index));
+        
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

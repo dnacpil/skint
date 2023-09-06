@@ -27,7 +27,8 @@ public class ExpensesController : Controller
 
             Problem("Entity set 'skintIdentityDbcontext.Expenses'  is null.");
     }
-    //Create new item to Expenses
+
+    //Create new item 
     [HttpGet]
     public IActionResult Create()
     {
@@ -43,7 +44,7 @@ public class ExpensesController : Controller
         {
             _db.Add(expense);
             await _db.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
+            RedirectToAction(nameof(Index));
         }
         return View(new Expenses());
     }
@@ -71,15 +72,7 @@ public class ExpensesController : Controller
     public async Task<IActionResult> PostEdit(int id, [Bind("Description, Cost, Due")] Expenses expense)
     {
 
-        if (ModelState.IsValid)
-        {
-            _db.Update(expense);
-            await _db.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-        }
-        return View(new Expenses());
-    }
-    /* if (id != expense.ExpenseID)
+        if (id != expense.ExpenseID)
         {
             return NotFound();
         }
@@ -102,17 +95,17 @@ public class ExpensesController : Controller
                     throw;
                 }
             }
-        return RedirectToAction("Index"); 
-}
-            return View(expense);
-        }*/
+            return RedirectToAction("Index");
+        }
+        return View(expense);
+    }
 
     private bool ExpensesExists(int expenseID)
     {
         throw new NotImplementedException();
     }
 
-    // Delete item
+    // Delete an item
     [HttpGet]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -144,8 +137,8 @@ public class ExpensesController : Controller
         }
         _db.Expenses.Remove(expense);
         _db.SaveChangesAsync();
-        //return RedirectToAction(nameof(Delete));
-        return View(new Expenses());
+        return RedirectToAction("Index");
+        
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

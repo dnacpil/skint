@@ -19,7 +19,6 @@ public class DebtController : Controller
         _db = context;
     }
 
-    //Create new item
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -29,6 +28,7 @@ public class DebtController : Controller
             Problem("Entity set 'skintIdentityDbcontext.Debt'  is null.");
     }
     
+    //Create new item
     [HttpGet]
     public IActionResult Create()
     {
@@ -44,9 +44,10 @@ public class DebtController : Controller
         {
             _db.Add(debt);
             await _db.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
+            RedirectToAction(nameof(Index));
+            
         }
-        return View();
+        return View(new Debt());
     }
     //Edit an item
     [HttpGet]
@@ -71,21 +72,40 @@ public class DebtController : Controller
     public async Task<IActionResult> PostEdit(int id, [Bind("Description, AmountOwed, Due")] Debt debt)
     {
 
+        if (id != debt.DebtID)
+        {
+            return NotFound();
+        }
+
         if (ModelState.IsValid)
         {
-            _db.Update(debt);
-            await _db.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
+            try
+            {
+                _db.Update(debt);
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DebtExists(debt.DebtID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index");
         }
-        return View(new Debt());
+        return View(debt);
     }
 
-    private bool DebtExists(int DebtID)
+    private bool DebtExists(int debtID)
     {
         throw new NotImplementedException();
     }
 
-    // Delete item
+    // Delete an item
     [HttpGet]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -117,9 +137,10 @@ public class DebtController : Controller
         }
         _db.Debt.Remove(debt);
         _db.SaveChangesAsync();
-        //return RedirectToAction(nameof(Delete));
-        return RedirectToRoute("../Home");
+        return RedirectToAction(nameof(Index));
+        
     }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
