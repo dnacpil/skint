@@ -24,7 +24,7 @@ dotnet run
 
 ## Users and Permissions
 
-Users can register online. However, permissions will need to be modified using SQL queries. Having an admintrative role will allow a user to manage the products online.
+Users can register online. However, permissions will need to be modified using SQL queries. Having an admintrative role will allow a user to manage user accounts online.
 
 To assign a user an adminitrator role:
 
