@@ -1,8 +1,6 @@
 @model Expenses
-<form method="post" id="editForm" asp-action="PostEdit" >
-    
-   @*  asp-route-id="@Model.ExpenseID"
-    <input type="hidden" asp-for="ExpenseID" /> *@
+<form method="post" id="editForm" asp-action="PostEdit" asp-route-id="@Model.ExpenseID">
+    <input type="hidden" asp-for="ExpenseID" /> 
     
     <div class="border p-3">
         <div asp-validation-summary="All"></div>

@@ -20,13 +20,22 @@ public class ExpensesController : Controller
     }
 
 
-    public async Task<IActionResult> Index(string sortOrder)
+    public async Task<IActionResult> Index(string? sortOrder, string searchString)
     {
+        if (_db.Debt == null)
+        {
+            return NotFound();
+        }
+
         ViewData["DescriptionSortParm"] = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
         ViewData["CostSortParam"] = sortOrder == "Cost" ? "cost_desc" : "Cost";
         ViewData["DueSortParm"] = sortOrder == "Due" ? "date_desc" : "Due";
         var expense = from e in _db.Expenses
-                          select e;
+                      select e;
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            expense = expense.Where(i => i.Description.Contains(searchString));
+        }
         switch (sortOrder)
         {
             case "description_desc":
@@ -58,7 +67,7 @@ public class ExpensesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Expenses>>> Create([Bind("Description, Cost, Due")] Expenses expense)
+    public async Task<ActionResult<IEnumerable<Expenses>>> Create([Bind("ExpenseID, Description, Cost, Due")] Expenses expense)
     {
         if (ModelState.IsValid)
         {
@@ -89,7 +98,7 @@ public class ExpensesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostEdit(int id, [Bind("Description, Cost, Due")] Expenses expense)
+    public async Task<IActionResult> PostEdit(int id, [Bind("ExpenseID, Description, Cost, Due")] Expenses expense)
     {
 
         if (id != expense.ExpenseID)
@@ -115,14 +124,14 @@ public class ExpensesController : Controller
                     throw;
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         return View(expense);
     }
 
-    private bool ExpensesExists(int expenseID)
+    private bool ExpensesExists(int id)
     {
-        throw new NotImplementedException();
+        return (_db.Expenses?.Any(e => e.ExpenseID == id)).GetValueOrDefault();
     }
 
     // Delete an item
@@ -158,7 +167,7 @@ public class ExpensesController : Controller
         _db.Expenses.Remove(expense);
         _db.SaveChangesAsync();
         return RedirectToAction("Index");
-        
+
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

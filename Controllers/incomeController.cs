@@ -20,12 +20,23 @@ public class IncomeController : Controller
     }
 
     [HttpGet]
-     public async Task<IActionResult> Index(string sortOrder)
+    public async Task<IActionResult> Index(string? sortOrder, string searchString)
     {
+        if (_db.Debt == null)
+        {
+            return NotFound();
+        }
+
         ViewData["SourceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "source_desc" : "";
         ViewData["AmountOwedSortParam"] = sortOrder == "AmountOwed" ? "amount_owed_desc" : "AmountOwed";
+        ViewData["CurrentFilter"] = searchString;
+
         var income = from i in _db.Income
-                          select i;
+                     select i;
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            income = income.Where(i => i.Source.Contains(searchString));
+        }
         switch (sortOrder)
         {
             case "source_desc":
@@ -51,7 +62,7 @@ public class IncomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Income>>> Create([Bind("Source, Amount")] Income income)
+    public async Task<ActionResult<IEnumerable<Income>>> Create([Bind("IncomeID, Source, Amount")] Income income)
     {
         if (ModelState.IsValid)
         {
@@ -82,7 +93,7 @@ public class IncomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostEdit(int id, [Bind("Source, Amount")] Income income)
+    public async Task<IActionResult> PostEdit(int id, [Bind("IncomeID, Source, Amount")] Income income)
     {
 
         if (id != income.IncomeID)
@@ -108,14 +119,14 @@ public class IncomeController : Controller
                     throw;
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         return View(income);
     }
 
-    private bool IncomeExists(int incomeID)
+    private bool IncomeExists(int id)
     {
-        throw new NotImplementedException();
+        return (_db.Income?.Any(e => e.IncomeID == id)).GetValueOrDefault();
     }
 
     // Delete an item
@@ -151,7 +162,7 @@ public class IncomeController : Controller
         _db.Income.Remove(income);
         _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
-        
+
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

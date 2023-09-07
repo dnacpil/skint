@@ -20,13 +20,22 @@ public class DebtController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(string sortOrder)
+    public async Task<IActionResult> Index(string? sortOrder, string searchString)
     {
-        ViewData["DescriptionSortParm"] = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
+        if (_db.Debt == null)
+            {
+                return NotFound();
+            }
+        ViewData["DescriptionSortParm"] = string.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
         ViewData["AmountOwedSortParam"] = sortOrder == "AmountOwed" ? "amount_owed_desc" : "AmountOwed";
         ViewData["DueSortParm"] = sortOrder == "Due" ? "date_desc" : "Due";
+        ViewData["CurrentFilter"] = searchString;
         var debt = from d in _db.Debt
                           select d;
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            debt = debt.Where(i => i.Description.Contains(searchString));
+        }
         switch (sortOrder)
         {
             case "description_desc":
@@ -58,7 +67,7 @@ public class DebtController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Debt>>> Create([Bind("Description, AmountOwed, Due")] Debt debt)
+    public async Task<ActionResult<IEnumerable<Debt>>> Create([Bind("DebtID, Description, AmountOwed, Due")] Debt debt)
     {
         if (ModelState.IsValid)
         {
@@ -89,7 +98,7 @@ public class DebtController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostEdit(int id, [Bind("Description, AmountOwed, Due")] Debt debt)
+    public async Task<IActionResult> PostEdit(int id, [Bind("DebtID, Description, AmountOwed, Due")] Debt debt)
     {
 
         if (id != debt.DebtID)
@@ -115,14 +124,14 @@ public class DebtController : Controller
                     throw;
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         return View(debt);
     }
 
-    private bool DebtExists(int debtID)
+    private bool DebtExists(int id)
     {
-        throw new NotImplementedException();
+        return (_db.Debt?.Any(e => e.DebtID == id)).GetValueOrDefault();
     }
 
     // Delete an item

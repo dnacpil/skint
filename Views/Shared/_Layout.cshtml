@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-
     @* <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/22.2.5/material.css" /> *@
     <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/22.2.5/bootstrap5.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -21,9 +20,10 @@
 </head>
 
 <body id="wrapper">
-    @if (SignInManager.IsSignedIn(User)){
-            <partial name="_SideBar" />
-        } 
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <partial name="_SideBar" />
+    }
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -35,12 +35,13 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        
+
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
         </nav>
+        <input id="myInput" type="text" placeholder="Search..">
     </header>
 
     <div class="container">
@@ -48,7 +49,7 @@
             @RenderBody()
         </main>
     </div>
-        
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - skint -
@@ -58,6 +59,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <ejs-scripts></ejs-scripts>
 </body>
