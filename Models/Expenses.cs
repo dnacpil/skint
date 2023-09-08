@@ -16,4 +16,9 @@ public class Expenses{
     public string? UserId { get; set; }
     [ForeignKey("UserId")]
     public virtual IdentityUser? User { get; set; }
+
+    internal static int Sum(Func<object, object> value)
+    {
+        throw new NotImplementedException();
+    }
 }

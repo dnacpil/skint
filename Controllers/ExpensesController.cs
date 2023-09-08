@@ -67,7 +67,7 @@ public class ExpensesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Expenses>>> Create([Bind("ExpenseID, Description, Cost, Due")] Expenses expense)
+    public async Task<ActionResult<IEnumerable<Expenses>>> Create([Bind("ExpenseID, Description, Cost, Due, UserId")] Expenses expense)
     {
         if (ModelState.IsValid)
         {
@@ -98,7 +98,7 @@ public class ExpensesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostEdit(int id, [Bind("ExpenseID, Description, Cost, Due")] Expenses expense)
+    public async Task<IActionResult> PostEdit(int id, [Bind("ExpenseID, Description, Cost, Due, UserId")] Expenses expense)
     {
 
         if (id != expense.ExpenseID)

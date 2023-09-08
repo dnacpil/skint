@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;900&family=Quicksand:wght@300;400&family=Roboto:ital,wght@0,100;0,300;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;900&family=Quicksand:wght@300;400&family=Roboto:ital,wght@0,100;0,300;1,700&display=swap");
 
 html {
   font-size: 14px;
@@ -10,7 +10,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -21,7 +25,7 @@ html {
 
 body {
   margin-bottom: 60px;
-  background: #EFEFF0;
+  background: #efeff0;
 }
 #wrapper {
   float: left;
@@ -36,19 +40,18 @@ header {
   width: 100%;
   height: auto;
   margin-left: 210px;
-
 }
 
-main{
+.main-content {
   margin-left: 250px;
 }
 
 /* Sidebar */
 #sidebar {
-  background-color: #ADBCA5;
-  border-right: 1px dashed rgba(75,82,85,0.24);
+  background-color: #adbca5;
+  border-right: 1px dashed rgba(75, 82, 85, 0.24);
   padding: 10px 20px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 #sidebar-toggler {
@@ -58,34 +61,35 @@ main{
   cursor: pointer;
 }
 
-  #sidebar-toggler:hover {
-      cursor: pointer;
-      background-color: #48545f14;
-      transform: scale(1.05) translateZ(0px);
-  }
+#sidebar-toggler:hover {
+  cursor: pointer;
+  background-color: #48545f14;
+  transform: scale(1.05) translateZ(0px);
+}
 
 #sidebar.e-close {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-  /* #sidebar.e-close .app-logo {
+/* #sidebar.e-close .app-logo {
       display: none;
   } */
 
-  #sidebar.e-close .e-anchor-wrap, #sidebar.e-close .e-menu-item.e-menu-caret-icon {
-      font-size: 0px;
-  }
+#sidebar.e-close .e-anchor-wrap,
+#sidebar.e-close .e-menu-item.e-menu-caret-icon {
+  font-size: 0px;
+}
 
- /*  #sidebar.e-close .profile-wrapper .titles {
+/*  #sidebar.e-close .profile-wrapper .titles {
       display: none !important;
   } */
 
-
-  #sidebar.e-open .e-anchor-wrap,
-  #sidebar.e-close .e-menu-icon, #sidebar.e-open .e-menu-icon {
-      visibility: visible;
-  }
+#sidebar.e-open .e-anchor-wrap,
+#sidebar.e-close .e-menu-icon,
+#sidebar.e-open .e-menu-icon {
+  visibility: visible;
+}
 
 #sidebar.e-open #sidebar.e-open {
   display: flex;
@@ -97,20 +101,19 @@ main{
 }
 
 #sidebar.e-open #sidebar-toggler:before {
-  content: '\f100'
+  content: "\f100";
 }
 
 #sidebar.e-close #sidebar-toggler:before {
-  content: '\f101'
+  content: "\f101";
 }
 
 /* Nav Links*/
 
-ul.sidebar-menu{
+ul.sidebar-menu {
   text-align: center;
-  
 }
-.nav-link{
+.nav-link {
   list-style-type: none;
 }
 
@@ -136,10 +139,41 @@ a:visited li.sidebar-menu-link {
 
 a:active li.sidebar-menu-link {
   color: inherit;
-
 }
 
-/* Widgets */
+/* Dasboard Widgets */
+
+.widget {
+  border-radius: 1rem;
+  background-color: #1a222b;
+}
+
+.widget.summary > div:first-child {
+  background-color: #adbca5;
+  padding: 1rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.widget.summary > div:first-child i {
+  font-weight: bold;
+}
+
+.widget.income > div:first-child {
+  color: #E8B9AB;
+}
+
+.widget.expense > div:first-child {
+  color: #E09891;
+}
+
+.widget.debt > div:first-child {
+  color: #CB769E;
+}
+
+.widget.balance > div:first-child {
+  color: #8C5F66;
+}
 
 /*Home Landing Section*/
 
@@ -152,8 +186,3 @@ a:active li.sidebar-menu-link {
 }*/
 
 /* Login & Signup Views */
-
-
-
-
-

@@ -67,7 +67,7 @@ public class DebtController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Debt>>> Create([Bind("DebtID, Description, AmountOwed, Due")] Debt debt)
+    public async Task<ActionResult<IEnumerable<Debt>>> Create([Bind("DebtID, Description, AmountOwed, Due, UserId")] Debt debt)
     {
         if (ModelState.IsValid)
         {
@@ -98,7 +98,7 @@ public class DebtController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostEdit(int id, [Bind("DebtID, Description, AmountOwed, Due")] Debt debt)
+    public async Task<IActionResult> PostEdit(int id, [Bind("DebtID, Description, AmountOwed, Due, UserId")] Debt debt)
     {
 
         if (id != debt.DebtID)

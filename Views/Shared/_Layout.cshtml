@@ -19,7 +19,7 @@
     @* <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/22.2.5/material.css" /> *@
     <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/22.2.5/bootstrap5.css" />
     <script src="https://cdn.syncfusion.com/ej2/22.2.5/dist/ej2.min.js"></script>
-    
+
 </head>
 
 <body id="wrapper">
@@ -46,12 +46,41 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <div class="main-content">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="@(ViewData["isHome"] == null?"col-md-10":"col-md-12")">
+                        <main role="main" class="pb-3">
+                            @if (ViewData["isHome"] == null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="d-flex flex-column mb-5">
+                                            <div class="d-flex mb-1">
+                                                <div class="flex-grow-1">
+                                                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                                                </div>
+                                                <div>
+                                                    @if (ViewData["PageActionText"] != null)
+                                                    {
+                                                        <a class="btn btn-success" href="@ViewData["PageActionUrl"]">
+                                                            @ViewData["PageActionText"]
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @RenderBody()
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - skint -

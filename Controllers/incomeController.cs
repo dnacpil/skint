@@ -62,7 +62,7 @@ public class IncomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<IEnumerable<Income>>> Create([Bind("IncomeID, Source, Amount")] Income income)
+    public async Task<ActionResult<IEnumerable<Income>>> Create([Bind("IncomeID, Source, Amount, UserId")] Income income)
     {
         if (ModelState.IsValid)
         {
@@ -93,7 +93,7 @@ public class IncomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostEdit(int id, [Bind("IncomeID, Source, Amount")] Income income)
+    public async Task<IActionResult> PostEdit(int id, [Bind("IncomeID, Source, Amount, UserId")] Income income)
     {
 
         if (id != income.IncomeID)

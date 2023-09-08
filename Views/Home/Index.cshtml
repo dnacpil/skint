@@ -1,28 +1,68 @@
 ﻿@model IEnumerable<Expenses>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["isHome"] = true;
 
 }
 
 <div id="landing-section">
     @* <img id="landing-img" src="../images/landing-image.jpg" alt=""> *@
     @* <a
-        href="https://www.freepik.com/free-vector/young-man-is-riding-piggy-bank-use-insect-net-trying-catch-flying-dollar-coin-dollars-flying-away-saving-money-concept-cartoon-vector-illustration_22821982.htm">Image
-        by jcomp on Freepik</a>  *@
+    href="https://www.freepik.com/free-vector/young-man-is-riding-piggy-bank-use-insect-net-trying-catch-flying-dollar-coin-dollars-flying-away-saving-money-concept-cartoon-vector-illustration_22821982.htm">Image
+    by jcomp on Freepik</a> *@
 </div>
 <div class="text-center">
-
     <h1 class="display-4">Budget</h1>
+
     <div class="row mb-4">
-    <div class="col-md-4">
-        <div class="d-flex flex-row widget summary income">
-            <div class="d-flex flex-column justify-content-center p-5">
-                
-            </div>
-            <div class="d-flex flex-column m-auto py-3">
-                <span class="lead">Total Income</span>
-                <h1 class="display-6 fw-bold"></h1>
+        <div class="col-md-4">
+            <div class="d-flex flex-row widget summary income">
+                <div class="d-flex flex-column justify-content-center p-5">
+                    @* put an icon here *@
+                </div>
+                <div class="d-flex flex-column m-auto py-3">
+                    <span class="lead">Total Income</span>
+                    <h1 class="display-6 fw-bold">@ViewBag.TotalIncome</h1>
+                </div>
             </div>
         </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="d-flex flex-row widget summary expenses">
+                    <div class="d-flex flex-column justify-content-center p-5">
+                        @* put an icon here *@
+                    </div>
+                    <div class="d-flex flex-column m-auto py-3">
+                        <span class="lead">Total Expenses</span>
+                        <h1 class="display-6 fw-bold">@ViewBag.TotalExpenses</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="d-flex flex-row widget summary debt">
+                    <div class="d-flex flex-column justify-content-center p-5">
+                        @* put an icon here *@
+                    </div>
+                    <div class="d-flex flex-column m-auto py-3">
+                        <span class="lead">Total Debt</span>
+                        <h1 class="display-6 fw-bold">@ViewBag.TotalDebt</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row widget summary balance">
+            <div class="d-flex flex-column justify-content-center p-5">
+                @* put an icon here *@
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Balance</span>
+                <h1 class="display-6 fw-bold">@ViewBag.Balance</h1>
+            </div>
+        </div>
+
     </div>
-    </div>
+</div>

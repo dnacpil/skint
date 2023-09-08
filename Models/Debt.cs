@@ -11,7 +11,7 @@ public class Debt
     public string? Description { get; set; } // see if you wanna make this nullable
     public double AmountOwed { get; set; }
 
-    public DateTime Due { get; set; }
+    public DateTime Due { get; set; } = DateTime.Now;
 
     public string? UserId { get; set; }
     [ForeignKey("UserId")]
