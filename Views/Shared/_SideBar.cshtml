@@ -1,36 +1,32 @@
-<ejs-sidebar id="dockSidebar" width="250px" dockSize="72px" enableDock="true">
+<ejs-sidebar id="sidebar" width="250" enableDock dockSize="100px" target=".dock-target" enableGestures="false">
     <e-content-template>
-        <div class="dock">
-            <ul>
-                <li class="sidebar-item" id="toggle">
-                    <span class="e-icons expand"></span>
-                    <span class="e-text" title="home"></span>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <div>
+            <div class="w-100"></div>
+            <i id="sidebar-toggler" class="fa-solid"></i>
+        </div>
+        <div>
+            <ul id="sidebar-menu">
+                <li class="menu-item">
+                    <a class="sidebar-menu-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
-                <li class="sidebar-item">
-                    <span class="e-icons income"></span>
-                    <span class="e-text" title="income"></span>
-                    <a class="nav-link" asp-area="" asp-controller="Income" asp-action="Index">
+                <li class="menu-item">
+                    <a class="sidebar-menu-link" asp-area="" asp-controller="Income" asp-action="Index">
                         Income
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <span class="e-icons expenses"></span>
-                    <span class="e-text" title="expenses"></span>
-                    <a class="nav-link" asp-area="" asp-controller="Expenses" asp-action="Index">
+                <li class="menu-item">
+                    <a class="sidebar-menu-link" asp-area="" asp-controller="Expenses" asp-action="Index">
                         Expenses
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <span class="e-icons debt"></span>
-                    <span class="e-text" title="debt"></span>
-                    <a class="nav-link" asp-area="" asp-controller="Debt" asp-action="Index">
+                <li class="menu-item">
+                    <a class="sidebar-menu-link" asp-area="" asp-controller="Debt" asp-action="Index">
                         Debt
                     </a>
                 </li>
             </ul>
         </div>
-    
+    </div>
     </e-content-template>
 </ejs-sidebar>
 
