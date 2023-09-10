@@ -33,18 +33,18 @@ body {
   min-height: 100%;
   padding-bottom: 100px;
   box-sizing: border-box;
+  margin-left: 250px;
 }
 
 header {
   float: left;
   width: 100%;
-  height: auto;
-  margin-left: 210px;
+  height: auto; 
 }
 
-.main-content {
+/* .main-content {
   margin-left: 250px;
-}
+} */
 
 /* Sidebar */
 #sidebar {
@@ -145,7 +145,7 @@ a:active li.sidebar-menu-link {
 
 .widget {
   border-radius: 1rem;
-  background-color: #1a222b;
+  background-color: #adbca5;
 }
 
 .widget.summary > div:first-child {
@@ -160,7 +160,7 @@ a:active li.sidebar-menu-link {
 }
 
 .widget.income > div:first-child {
-  color: #E8B9AB;
+  background-color: #E8B9AB;
 }
 
 .widget.expense > div:first-child {

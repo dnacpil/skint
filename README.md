@@ -1,4 +1,15 @@
-# Skint is a personal finance tracker web application.
+# Skint is a personal budeget tracker web application.
+
+### Prerequisites 
+* HTML
+* CSS
+* JavaScript
+* C#
+* SQL 
+* .NET ( [Download Link](https://dotnet.microsoft.com/en-us/download))
+* Syncfusion License ([Link](https://www.syncfusion.com/products/communitylicense))
+* IDE 
+* Command Line
 
 ## Installation
 1. Fork and clone the repository:
