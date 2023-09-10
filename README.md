@@ -1,4 +1,4 @@
-# Skint is a personal budeget tracker web application.
+# Skint is a budeget tracker web application.
 
 ### Prerequisites 
 * HTML

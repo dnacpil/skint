@@ -9,7 +9,6 @@ using skint.Models;
 
 namespace skint.Controllers;
 [Route("api/[controller]/[action]")]
-//[Authorize]
 public class ExpensesController : Controller
 
 {

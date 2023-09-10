@@ -12,11 +12,6 @@ builder.Services.AddDbContext<skintIdentityDbContext>(options => options.UseSqli
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<skintIdentityDbContext>();
 
-
-builder.Services.AddControllersWithViews();
-builder.Services.AddEndpointsApiExplorer();
-
-
 var app = builder.Build();
 
 //Register Syncfusion license

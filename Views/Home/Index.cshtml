@@ -1,23 +1,23 @@
-﻿@model IEnumerable<Expenses>
+﻿
 @{
     ViewData["isHome"] = true;
 
 }
 
-@*<div id="landing-section">
+<div id="landing-section">
+    <h1 class="display-4">Budget</h1>
     @* <img id="landing-img" src="../images/landing-image.jpg" alt="">
     <a
     href="https://www.freepik.com/free-vector/young-man-is-riding-piggy-bank-use-insect-net-trying-catch-flying-dollar-coin-dollars-flying-away-saving-money-concept-cartoon-vector-illustration_22821982.htm">Image
-    by jcomp on Freepik</a>
-</div>*@
-<div class="text-center">
-    <h1 class="display-4">Budget</h1>
+    by jcomp on Freepik</a>*@
+</div>
 
+<div class="container">
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="d-flex flex-row widget summary income">
+            <div class="d-flex flex-row widget summary income" id="income-widget">
                 <div class="d-flex flex-column justify-content-center p-5">
-                    @* put an icon here *@
+                    <i class="fa-solid fa-wallet"></i>
                 </div>
                 <div class="d-flex flex-column m-auto py-3">
                     <span class="lead">Total Income</span>
@@ -25,44 +25,59 @@
                 </div>
             </div>
         </div>
-
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="d-flex flex-row widget summary expenses">
-                    <div class="d-flex flex-column justify-content-center p-5">
-                        @* put an icon here *@
-                    </div>
-                    <div class="d-flex flex-column m-auto py-3">
-                        <span class="lead">Total Expenses</span>
-                        <h1 class="display-6 fw-bold">@ViewBag.TotalExpenses</h1>
-                    </div>
+        <div class="col-md-4">
+            <div class="d-flex flex-row widget summary expenses" id="expenses-widget">
+                <div class="d-flex flex-column justify-content-center p-5">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <div class="d-flex flex-column m-auto py-3">
+                    <span class="lead">Total Expenses</span>
+                    <h1 class="display-6 fw-bold">@ViewBag.TotalExpenses</h1>
                 </div>
             </div>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="d-flex flex-row widget summary debt">
-                    <div class="d-flex flex-column justify-content-center p-5">
-                        @* put an icon here *@
-                    </div>
-                    <div class="d-flex flex-column m-auto py-3">
-                        <span class="lead">Total Debt</span>
-                        <h1 class="display-6 fw-bold">@ViewBag.TotalDebt</h1>
-                    </div>
+        <div class="col-md-4">
+            <div class="d-flex flex-row widget summary debt" id="debt-widget">
+                <div class="d-flex flex-column justify-content-center p-5">
+                    <i class="fa-regular fa-sack-dollar"></i>
+                </div>
+                <div class="d-flex flex-column m-auto py-3">
+                    <span class="lead">Total Debt</span>
+                    <h1 class="display-6 fw-bold">@ViewBag.TotalDebt</h1>
                 </div>
             </div>
         </div>
-
-        <div class="d-flex flex-row widget summary balance">
-            <div class="d-flex flex-column justify-content-center p-5">
-                @* put an icon here *@
-            </div>
-            <div class="d-flex flex-column m-auto py-3">
-                <span class="lead">Balance</span>
-                <h1 class="display-6 fw-bold">@ViewBag.Balance</h1>
-            </div>
-        </div>
-
     </div>
 </div>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="d-flex flex-row widget summary balance" id="balance-widget">
+                <div class="d-flex flex-column m-auto justify-content-center py-3">
+                    <span class="lead">Balance</span>
+                    <h1 class="display-6 fw-bold">@ViewBag.Balance</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            
+        </div>
+    </div>
+    @* <div class="widget chart">
+                <ejs-accumulationchart id="container">
+                    <e-accumulation-series-collection>
+                        <e-accumulation-series dataSource="ViewBag.SummaryData" xName="xValue" yName="yValue"
+                            innerRadius="60%" legendShape="Circle">
+                        </e-accumulation-series>
+                    </e-accumulation-series-collection>
+                    
+                <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable></e-accumulationchart-tooltipsettings>
+                </ejs-accumulationchart>
+                
+            </div> *@
