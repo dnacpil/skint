@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "User Accounts";
+}
+<div class="text-center">
+    <h1 class="display-4">User Accounts</h1>
+</div>
+<div>
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

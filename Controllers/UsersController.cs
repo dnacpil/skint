@@ -22,6 +22,10 @@ namespace skint.Controllers
             var users = await _userManager.Users.ToListAsync();
             return View(users);
         }
+        public IActionResult Edit()
+        {
+            return View();
+        }
 
     }
 }

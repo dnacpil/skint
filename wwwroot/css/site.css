@@ -38,7 +38,10 @@ header {
   width: 100%;
   height: auto; 
 }
-
+.navbar-nav{
+  float: right;
+  padding: 20px;
+}
 /* .main-content {
   margin-left: 250px;
 } */
@@ -215,4 +218,4 @@ a:active li.sidebar-menu-link {
   box-sizing: border-box;
 }*/
 
-/* Login & Signup Views */
+/* Login & Signup */
